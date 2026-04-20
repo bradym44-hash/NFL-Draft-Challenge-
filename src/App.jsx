@@ -934,23 +934,38 @@ export default function App() {
       const data = await firebaseGet();
       if (data && data._t && data._t > lastSaveTime.current) {
           const { _t, ...stateData } = data;
-          // Ensure all picks have required fields
+          const clean = makeDefaultState();
+          // Merge Firebase data safely over clean defaults
           if (stateData.picks) {
             PLAYERS.forEach(p => {
-              if (!stateData.picks[p]) stateData.picks[p] = {};
-              TEAMS.forEach(t => {
-                if (!stateData.picks[p][t.pick]) stateData.picks[p][t.pick] = { player:"", lock:false, trade:false, tradeTeam:"" };
-                if (stateData.picks[p][t.pick].player === null) stateData.picks[p][t.pick].player = "";
-              });
+              if (stateData.picks[p]) {
+                TEAMS.forEach(t => {
+                  const slot = stateData.picks[p][t.pick];
+                  if (slot && typeof slot === 'object') {
+                    clean.picks[p][t.pick] = {
+                      player: slot.player || "",
+                      lock: slot.lock || false,
+                      trade: slot.trade || false,
+                      tradeTeam: slot.tradeTeam || "",
+                    };
+                  }
+                });
+              }
             });
           }
           if (stateData.actual) {
             TEAMS.forEach(t => {
-              if (!stateData.actual[t.pick]) stateData.actual[t.pick] = { player:"", trade:false };
-              if (stateData.actual[t.pick].player === null) stateData.actual[t.pick].player = "";
+              const slot = stateData.actual[t.pick];
+              if (slot && typeof slot === 'object') {
+                clean.actual[t.pick] = {
+                  player: slot.player || "",
+                  trade: slot.trade || false,
+                };
+              }
             });
           }
-          setState(stateData);
+          if (stateData.scores) clean.scores = stateData.scores;
+          setState(clean);
         }
       setSyncStatus("ok");
     } catch { setSyncStatus("ok"); }
