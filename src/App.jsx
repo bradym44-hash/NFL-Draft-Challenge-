@@ -482,10 +482,11 @@ function sortedByRank(list) {
 function computeScore(playerPicks, actualPicks) {
   let total = 0;
   const breakdown = [];
+  if (!playerPicks || !actualPicks) return { total: 0, breakdown: [] };
   TEAMS.forEach(t => {
     const p = playerPicks[t.pick] || { player: "", lock: false, trade: false };
     const a = actualPicks[t.pick] || { player: "", trade: false };
-    if (!a.player) return;
+    if (!a || !a.player) return;
     let pts = 0, reason = "";
     if (p.player && p.player === a.player) {
       pts += 3; reason = "✅ Right team + spot";
@@ -500,6 +501,7 @@ function computeScore(playerPicks, actualPicks) {
 }
 
 function computeFunStats(allPicks, actualPicks) {
+  if (!allPicks || !actualPicks) return [];
   const stats = [];
   const hasActual = Object.values(actualPicks).some(a => a && a.player);
   if (!hasActual) return [];
@@ -992,15 +994,17 @@ export default function App() {
   const lockCountdown = daysLeft>0?`${daysLeft}d ${hoursLeft}h left`:hoursLeft>0?`${hoursLeft}h ${minsLeft}m left`:`${minsLeft}m left`;
 
   const { picks, actual, submitted } = state;
-  const scores = useMemo(() => { const s={}; PLAYERS.forEach(p=>{s[p]=computeScore(picks[p]||{},actual).total;}); return s; }, [picks,actual]);
+  const scores = useMemo(() => { const s={}; PLAYERS.forEach(p=>{s[p]=computeScore(picks[p]||{},actual||{}).total;}); return s; }, [picks,actual]);
   const curPicks = picks[activePlayer]||{};
+  // Ensure all slots exist
+  TEAMS.forEach(t => { if(!curPicks[t.pick]) curPicks[t.pick]={player:'',lock:false,trade:false,tradeTeam:''}; });
   const filledCount = TEAMS.filter(t=>curPicks[t.pick]?.player).length;
   const prevFilledRef = useRef(filledCount);
   const { breakdown } = computeScore(curPicks,actual);
   const perPick = {}; breakdown.forEach(b=>{perPick[b.pick]=b;});
   const funStats = computeFunStats(picks,actual);
   const sorted = [...PLAYERS].sort((a,b)=>scores[b]-scores[a]);
-  const hasActual = Object.values(actual).some(a=>a.player);
+  const hasActual = Object.values(actual).some(a=>a && a.player);
 
   const [showConfetti, setShowConfetti] = useState(false);
   useEffect(() => {
