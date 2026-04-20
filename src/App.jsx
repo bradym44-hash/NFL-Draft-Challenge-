@@ -547,7 +547,7 @@ function computeFunStats(allPicks, actualPicks) {
   return stats.slice(0, 6);
 }
 
-const FIREBASE_URL = "https://draft-game-2026-default-rtdb.firebaseio.com/state.json";
+const FIREBASE_URL = "https://draft-game-2026-b7ab9-default-rtdb.firebaseio.com/state.json";
 async function firebaseGet() {
   try { const res = await fetch(FIREBASE_URL); if (!res.ok) return null; return await res.json(); } catch { return null; }
 }
