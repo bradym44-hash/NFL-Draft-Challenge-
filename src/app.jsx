@@ -569,6 +569,13 @@ function makeDefaultState() {
 
 const posColors = { QB:"#00e5d4",RB:"#f0b429",WR:"#ff7b40",TE:"#a78bfa",OT:"#34d399",IOL:"#60a5fa",EDGE:"#f87171",DT:"#fb923c",LB:"#e879f9",CB:"#38bdf8",S:"#fbbf24" };
 
+function clampFontSize(name) {
+  if (!name) return 24;
+  if (name.length > 20) return 18;
+  if (name.length > 15) return 21;
+  return 24;
+}
+
 function Avatar({ name, size = 32 }) {
   const [imgOk, setImgOk] = useState(true);
   const prospect = ALL_PROSPECTS.find(p => p.name === name);
@@ -1481,11 +1488,4 @@ export default function App() {
       </div>
     </div>
   );
-}
-
-function clampFontSize(name) {
-  if (!name) return 24;
-  if (name.length > 20) return 18;
-  if (name.length > 15) return 21;
-  return 24;
 }
