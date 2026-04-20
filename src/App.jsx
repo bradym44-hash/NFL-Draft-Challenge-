@@ -11,7 +11,7 @@ const TEAMS = [
   { pick: 7,  name: "Commanders", full: "Washington Commanders",     abbr: "WAS", espn: "wsh" },
   { pick: 8,  name: "Saints",     full: "New Orleans Saints",        abbr: "NO",  espn: "no" },
   { pick: 9,  name: "Chiefs",     full: "Kansas City Chiefs",        abbr: "KC",  espn: "kc" },
-  { pick: 10, name: "Bengals",    full: "Cincinnati Bengals",        abbr: "CIN", espn: "cin" },
+  { pick: 10, name: "Giants",     full: "New York Giants",           abbr: "NYG", espn: "nyg" },
   { pick: 11, name: "Dolphins",   full: "Miami Dolphins",            abbr: "MIA", espn: "mia" },
   { pick: 12, name: "Cowboys",    full: "Dallas Cowboys",            abbr: "DAL", espn: "dal" },
   { pick: 13, name: "Rams",       full: "Los Angeles Rams",          abbr: "LAR", espn: "lar" },
@@ -1233,7 +1233,7 @@ export default function App() {
                           <div style={{ flex:1, padding:"12px 14px", display:"flex", gap:12, alignItems:"flex-start" }}>
                             <div style={{ flexShrink:0, position:"relative" }}>
                               <Avatar name={p.player} size={64} />
-                              {cRank(p.player)<=99 && <div style={{ position:"absolute", bottom:-4, right:-4, background:"#0a0f14", border:"1px solid #1c2a38", borderRadius:4, padding:"1px 5px", fontFamily:"'Bebas Neue',sans-serif", fontSize:11, color:"#4a6070" }}>#{cRank(p.player)}</div>}
+                              
                               {(() => { const pv = getPickValue(p.player, t.pick); return pv ? (<div style={{ position:"absolute", top:-6, left:-6, background:pv.color, borderRadius:4, padding:"1px 5px", fontFamily:"'Bebas Neue',sans-serif", fontSize:10, color:"#000", letterSpacing:0.5, whiteSpace:"nowrap" }}>{pv.short}</div>) : null; })()}
                             </div>
                             <div style={{ flex:1, minWidth:0 }}>
