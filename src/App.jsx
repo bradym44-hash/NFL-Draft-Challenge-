@@ -501,7 +501,7 @@ function computeScore(playerPicks, actualPicks) {
 
 function computeFunStats(allPicks, actualPicks) {
   const stats = [];
-  const hasActual = Object.values(actualPicks).some(a => a.player);
+  const hasActual = Object.values(actualPicks).some(a => a && a.player);
   if (!hasActual) return [];
   let maxOff = 0, maxOffPlayer = "", maxOffName = "";
   PLAYERS.forEach(player => {
@@ -930,7 +930,26 @@ export default function App() {
   const loadState = useCallback(async () => {
     try {
       const data = await firebaseGet();
-      if (data && data._t && data._t > lastSaveTime.current) { const { _t, ...stateData } = data; setState(stateData); }
+      if (data && data._t && data._t > lastSaveTime.current) {
+          const { _t, ...stateData } = data;
+          // Ensure all picks have required fields
+          if (stateData.picks) {
+            PLAYERS.forEach(p => {
+              if (!stateData.picks[p]) stateData.picks[p] = {};
+              TEAMS.forEach(t => {
+                if (!stateData.picks[p][t.pick]) stateData.picks[p][t.pick] = { player:"", lock:false, trade:false, tradeTeam:"" };
+                if (stateData.picks[p][t.pick].player === null) stateData.picks[p][t.pick].player = "";
+              });
+            });
+          }
+          if (stateData.actual) {
+            TEAMS.forEach(t => {
+              if (!stateData.actual[t.pick]) stateData.actual[t.pick] = { player:"", trade:false };
+              if (stateData.actual[t.pick].player === null) stateData.actual[t.pick].player = "";
+            });
+          }
+          setState(stateData);
+        }
       setSyncStatus("ok");
     } catch { setSyncStatus("ok"); }
   }, []);
