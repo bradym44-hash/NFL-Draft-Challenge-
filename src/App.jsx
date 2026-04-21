@@ -37,20 +37,33 @@ const TEAMS = [
 ];
 
 const TEAM_NEEDS = {
-  "Raiders": ["QB","OL","EDGE","S"], "Jets": ["EDGE","CB","DT","WR"],
-  "Cardinals": ["QB","S","CB","EDGE"], "Titans": ["EDGE","RB","CB","OT"],
-  "Giants": ["WR","CB","OT","LB"], "Browns": ["QB","OT","WR","CB"],
-  "Commanders": ["EDGE","CB","S","IOL"], "Saints": ["OT","IOL","RB","EDGE"],
-  "Chiefs": ["OT","WR","RB","DT"], "Bengals": ["DT","EDGE","LB","IOL"],
-  "Dolphins": ["QB","EDGE","CB","WR"], "Cowboys": ["EDGE","CB","LB","S"],
-  "Rams": ["WR","OT","CB","QB"], "Ravens": ["OT","IOL","WR","S"],
-  "Buccaneers": ["WR","EDGE","CB","IOL"], "Lions": ["OT","EDGE","DT","LB"],
-  "Vikings": ["C","S","WR","EDGE"], "Panthers": ["EDGE","LB","WR","OT"],
-  "Steelers": ["QB","WR","IOL","CB"], "Chargers": ["IOL","DT","EDGE","CB"],
-  "Eagles": ["WR","CB","OT","LB"], "Bears": ["WR","EDGE","CB","IOL"],
-  "Bills": ["EDGE","IOL","CB","WR"], "49ers": ["EDGE","LB","DT","WR"],
-  "Texans": ["RB","EDGE","CB","IOL"], "Patriots": ["EDGE","WR","OT","CB"],
-  "Seahawks": ["IOL","WR","CB","LB"],
+  "Raiders":    ["QB","WR","DT","EDGE"],       // Mendoza incoming, need weapons + D
+  "Jets":       ["WR","EDGE","CB","QB"],        // Geno bridge, need pass rusher + WR
+  "Cardinals":  ["QB","OT","DT","CB"],          // Reset at QB, trenches need work
+  "Titans":     ["EDGE","WR","C","CB"],         // Saleh needs pass rush, Ward needs help
+  "Giants":     ["WR","DT","IOL","CB"],         // Dart needs weapons, run D was worst in NFL
+  "Browns":     ["QB","WR","OT","CB"],          // Still need franchise QB + weapons
+  "Commanders": ["EDGE","CB","S","IOL"],        // Defense needs pass rush, secondary help
+  "Saints":     ["OT","IOL","EDGE","WR"],       // Trenches top priority
+  "Chiefs":     ["WR","CB","DT","EDGE"],        // Signed K.Walker, lost McDuffie/Watson in secondary
+  "Bengals":    ["DT","EDGE","LB","IOL"],       // Dexter Lawrence gone, interior D need
+  "Dolphins":   ["QB","EDGE","CB","WR"],        // Tua situation murky, needs everywhere
+  "Cowboys":    ["EDGE","CB","LB","DT"],        // Defense defense defense
+  "Rams":       ["WR","OT","CB","QB"],          // Stafford aging, need another WR
+  "Ravens":     ["OT","IOL","WR","S"],          // OL depth, Faalele not the answer
+  "Buccaneers": ["WR","EDGE","CB","IOL"],       // Weapons for Baker, pass rush depth
+  "Lions":      ["OT","IOL","EDGE","LB"],       // OL overhaul priority for Goff
+  "Vikings":    ["C","S","WR","EDGE"],          // Kelly retired, Smith aging, WR depth
+  "Panthers":   ["EDGE","LB","WR","OT"],        // Ekwonu injury, still need pass rush
+  "Steelers":   ["QB","WR","IOL","CB"],         // Long-term QB, Rodgers question
+  "Chargers":   ["IOL","EDGE","CB","DT"],       // Mack/Dupree/Tuipulotu all expiring
+  "Eagles":     ["S","EDGE","OT","TE"],         // Blankenship gone, OL aging
+  "Bears":      ["DT","EDGE","CB","IOL"],       // D-line needs talent
+  "Bills":      ["EDGE","CB","IOL","WR"],       // Defense to match Allen's prime
+  "49ers":      ["EDGE","OT","LB","DT"],        // Williams aging, need pass rush
+  "Texans":     ["EDGE","IOL","CB","RB"],       // OL health concerns, need pass rush
+  "Patriots":   ["EDGE","WR","OT","CB"],        // Build around Vrabel's vision
+  "Seahawks":   ["RB","EDGE","CB","IOL"],       // K.Walker gone, Woolen/Mafe expiring
 };
 
 const TEAM_COLORS = {
@@ -409,50 +422,49 @@ const COMBINE_DATA = {
   'Dillon Thieneman': {forty:"4.35", bench:null, cone:null},
 };
 
-const MOCK_DRAFT_SOURCES = ["DJ","Brooks","McShay","ESPN","Zierlein","C.Davis","Kiper","Walter","Nick W","Brugler"];
+const MOCK_DRAFT_SOURCES = ["DJ","Brooks","McShay","ESPN","Zierlein","Edholm","Kiper","Walter","Miller","Simms"];
 const MOCK_DRAFT_DATA = {
-  "Fernando Mendoza": [[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"],[1,"LV"]],
-  "Arvell Reese": [[2,"NYJ"],[3,"ARI"],[2,"NYJ"],[2,"NYJ"],[2,"NYJ"],[2,"NYJ"],[2,"NYJ"],[2,"NYJ"],[3,"ARI"]],
-  "David Bailey": [[8,"NO"],[2,"NYJ"],[4,"TEN"],[4,"TEN"],[3,"ARI"],[3,"ARI"],[2,"NYJ"],[4,"TEN"],[2,"NYJ"]],
-  "Francis Mauigoa": [[3,"ARI"],[9,"KC"],[3,"ARI"],[3,"ARI"],[null,""],[10,"CIN"],[3,"ARI"],[3,"ARI"],[4,"TEN"]],
-  "Jeremiyah Love": [[4,"TEN"],[4,"TEN"],[5,"NYG"],[5,"NYG"],[4,"TEN"],[4,"TEN"],[5,"NYG"],[5,"NYG"],[5,"NYG"]],
-  "Sonny Styles": [[5,"NYG"],[5,"NYG"],[11,"MIA"],[8,"NO"],[12,"DAL"],[6,"CLE"],[8,"NO"],[6,"CLE"],[8,"NO"]],
-  "Carnell Tate": [[6,"CLE"],[6,"CLE"],[6,"CLE"],[11,"MIA"],[5,"NYG"],[5,"NYG"],[6,"CLE"],[5,"NYG"],[6,"CLE"]],
-  "Rueben Bain Jr.": [[7,"WAS"],[12,"DAL"],[4,"TEN"],[12,"DAL"],[10,"CIN"],[8,"NO"],[null,""],[7,"WAS"],[7,"WAS"]],
-  "Caleb Downs": [[null,""],[7,"WAS"],[7,"WAS"],[7,"WAS"],[16,"NYJ"],[7,"WAS"],[10,"CIN"],[8,"NO"],[9,"KC"]],
-  "Kenyon Sadiq": [[9,"KC"],[29,"KC"],[9,"KC"],[9,"KC"],[14,"BAL"],[15,"TB"],[9,"KC"],[9,"KC"],[14,"BAL"]],
-  "Mansoor Delane": [[null,""],[10,"CIN"],[7,"WAS"],[10,"CIN"],[7,"WAS"],[9,"KC"],[10,"CIN"],[10,"CIN"],[10,"CIN"]],
-  "Olaivavega Ioane": [[11,"MIA"],[11,"MIA"],[14,"BAL"],[21,"PIT"],[11,"MIA"],[11,"MIA"],[11,"MIA"],[11,"MIA"],[11,"MIA"]],
-  "Makai Lemon": [[13,"LAR"],[13,"LAR"],[13,"LAR"],[6,"CLE"],[8,"NO"],[12,"DAL"],[13,"LAR"],[13,"LAR"],[12,"DAL"]],
-  "Jordyn Tyson": [[14,"BAL"],[8,"NO"],[13,"LAR"],[13,"LAR"],[13,"LAR"],[14,"BAL"],[14,"BAL"],[14,"BAL"],[13,"LAR"]],
-  "Keldric Faulk": [[null,""],[27,"SF"],[15,"TB"],[29,"KC"],[15,"TB"],[27,"SF"],[27,"SF"],[15,"TB"],[15,"TB"]],
-  "Spencer Fano": [[null,""],[15,"TB"],[10,"CIN"],[15,"TB"],[9,"KC"],[16,"NYJ"],[15,"TB"],[16,"NYJ"],[16,"NYJ"]],
-  "Jermod McCoy": [[10,"CIN"],[16,"NYJ"],[null,""],[null,""],[null,""],[16,"NYJ"],[16,"NYJ"],[null,""],[17,"DET"]],
-  "Monroe Freeling": [[17,"DET"],[17,"DET"],[17,"DET"],[17,"DET"],[6,"CLE"],[17,"DET"],[17,"DET"],[17,"DET"],[18,"MIN"]],
-  "Dillon Thieneman": [[18,"MIN"],[19,"CAR"],[18,"MIN"],[18,"MIN"],[18,"MIN"],[19,"CAR"],[18,"MIN"],[18,"MIN"],[19,"CAR"]],
-  "Akheem Mesidor": [[19,"CAR"],[20,"DAL"],[19,"CAR"],[19,"CAR"],[19,"CAR"],[20,"DAL"],[19,"CAR"],[19,"CAR"],[20,"DAL"]],
-  "CJ Allen": [[null,""],[21,"PIT"],[23,"PHI"],[null,""],[24,"CLE"],[20,"DAL"],[21,"PIT"],[21,"PIT"],[21,"PIT"]],
-  "Cashius Howell": [[15,"TB"],[null,""],[31,"NE"],[31,"NE"],[null,""],[null,""],[null,""],[null,""],[null,""]],
-  "Omar Cooper Jr.": [[12,"DAL"],[30,"MIA"],[16,"NYJ"],[16,"NYJ"],[21,"PIT"],[21,"PIT"],[16,"NYJ"],[21,"PIT"],[22,"LAC"]],
-  "Kadyn Proctor": [[21,"PIT"],[23,"PHI"],[21,"PIT"],[null,""],[17,"DET"],[23,"PHI"],[21,"PIT"],[22,"LAC"],[23,"PHI"]],
-  "Chase Bisontis": [[22,"LAC"],[22,"LAC"],[22,"LAC"],[28,"HOU"],[null,""],[22,"LAC"],[22,"LAC"],[22,"LAC"],[22,"LAC"]],
-  "Blake Miller": [[null,""],[18,"MIN"],[null,""],[23,"PHI"],[23,"PHI"],[19,"CAR"],[23,"PHI"],[23,"PHI"],[24,"CLE"]],
-  "Kayden McDonald": [[null,""],[25,"CHI"],[25,"CHI"],[25,"CHI"],[25,"CHI"],[25,"CHI"],[25,"CHI"],[25,"CHI"],[25,"CHI"]],
-  "Avieon Terrell": [[null,""],[28,"HOU"],[32,"SEA"],[26,"BUF"],[null,""],[32,"SEA"],[32,"SEA"],[26,"BUF"],[26,"BUF"]],
-  "T.J. Parker": [[29,"KC"],[26,"BUF"],[26,"BUF"],[22,"LAC"],[null,""],[30,"MIA"],[26,"BUF"],[26,"BUF"],[27,"SF"]],
-  "Emmanuel McNeil-Warren": [[20,"DAL"],[29,"KC"],[30,"MIA"],[30,"MIA"],[28,"HOU"],[29,"KC"],[30,"MIA"],[29,"KC"],[28,"HOU"]],
-  "Caleb Lomu": [[null,""],[24,"CLE"],[24,"CLE"],[null,""],[31,"NE"],[24,"CLE"],[24,"CLE"],[24,"CLE"],[29,"KC"]],
-  "Max Iheanachor": [[null,""],[32,"SEA"],[null,""],[null,""],[null,""],[31,"NE"],[31,"NE"],[31,"NE"],[31,"NE"]],
-  "Ty Simpson": [[null,""],[31,"NE"],[null,""],[null,""],[null,""],[3,"ARI"],[16,"NYJ"],[null,""],[null,""]],
-  "Jadarian Price": [[32,"SEA"],[32,"SEA"],[null,""],[null,""],[30,"MIA"],[32,"SEA"],[32,"SEA"],[32,"SEA"],[32,"SEA"]],
-  "Peter Woods": [[null,""],[null,""],[32,"SEA"],[32,"SEA"],[null,""],[null,""],[32,"SEA"],[null,""],[null,""]],
-  "Denzel Boston": [[null,""],[19,"CAR"],[null,""],[20,"DAL"],[null,""],[18,"MIN"],[null,""],[20,"DAL"],[20,"DAL"]],
-  "Colton Hood": [[null,""],[20,"DAL"],[null,""],[null,""],[20,"DAL"],[22,"LAC"],[null,""],[null,""],[null,""]],
-  "Lee Hunter": [[null,""],[22,"LAC"],[null,""],[null,""],[null,""],[26,"BUF"],[26,"BUF"],[null,""],[null,""]],
-  "Caleb Banks": [[null,""],[null,""],[null,""],[null,""],[22,"LAC"],[null,""],[null,""],[null,""],[null,""]],
-  "Zachariah Branch": [[null,""],[27,"SF"],[null,""],[null,""],[null,""],[28,"HOU"],[29,"KC"],[null,""],[null,""]],
-  "Zion Young": [[null,""],[null,""],[null,""],[20,"DAL"],[null,""],[null,""],[null,""],[null,""],[null,""]],
-  "R Mason Thomas": [[null,""],[null,""],[null,""],[32,"SEA"],[null,""],[null,""],[null,""],[null,""],[null,""]],
+  'Akheem Mesidor': { rows: [[28,"PIT"], [28,"NE"], [28,"PIT"], [28,"NE"], [28,"SEA"], [31,"NE"], [31,"NE"], [28,"NE"], [28,"NE"], [26,"HOU"]], avg: 28.4 },
+  'Anthony Hill Jr.': { rows: [[31,"NE"], [31,"KC"], [31,"NE"], [31,"KC"], [32,"DAL"], null, null, [32,"DAL"], [31,"KC"], null], avg: 31.3 },
+  'Arvell Reese': { rows: [[3,"ARI"], [2,"NYJ"], [2,"NYJ"], [3,"ARI"], [3,"ARI"], [2,"NYJ"], [3,"ARI"], [2,"NYJ"], [2,"NYJ"], [2,"NYJ"]], avg: 2.4 },
+  'Avieon Terrell': { rows: [[27,"HOU"], [29,"SEA"], [27,"HOU"], [29,"SEA"], [27,"PIT"], [27,"SF"], [27,"SF"], [29,"SEA"], [29,"SEA"], null], avg: 27.9 },
+  'Blake Miller': { rows: [[26,"SF"], [25,"SF"], [26,"SF"], [25,"SF"], [25,"SF"], [28,"PIT"], [28,"PIT"], [26,"HOU"], [25,"SF"], [23,"CHI"]], avg: 25.7 },
+  'CJ Allen': { rows: [[23,"CHI"], [21,"PHI"], [23,"CHI"], [21,"PHI"], [20,"CLE"], [23,"DAL"], [23,"CHI"], [23,"CHI"], [21,"PHI"], null], avg: 22.0 },
+  'Caleb Banks': { rows: [null, null, null, null, null, null, null, null, [23,"CHI"], [29,"SEA"]], avg: 26.0 },
+  'Caleb Downs': { rows: [[10,"MIA"], [10,"NYG"], [6,"CLE"], [10,"NYG"], [10,"NYG"], [10,"NYG"], [5,"NYG"], [14,"BAL"], [10,"NYG"], [8,"NO"]], avg: 9.3 },
+  'Caleb Lomu': { rows: [[24,"CLE"], [24,"BUF"], [24,"CLE"], [24,"BUF"], [24,"BUF"], null, [24,"CLE"], [24,"BUF"], [24,"BUF"], null], avg: 24.0 },
+  'Carnell Tate': { rows: [[6,"CLE"], [7,"WAS"], [3,"ARI"], [6,"CLE"], [6,"CLE"], [6,"CLE"], [6,"CLE"], [5,"NYG"], [6,"CLE"], [5,"NYG"]], avg: 5.6 },
+  'Chase Bisontis': { rows: [null, null, null, null, null, null, null, null, null, [32,"DAL"]], avg: 32.0 },
+  'Christen Miller': { rows: [null, null, null, null, null, null, null, null, null, [28,"NE"]], avg: 28.0 },
+  'Colton Hood': { rows: [null, null, null, null, null, [26,"BUF"], [22,"LAC"], null, null, [12,"DAL"]], avg: 20.0 },
+  'David Bailey': { rows: [[2,"NYJ"], [3,"ARI"], [12,"DAL"], [2,"NYJ"], [2,"NYJ"], [3,"ARI"], [2,"NYJ"], [3,"ARI"], [3,"ARI"], [4,"TEN"]], avg: 3.6 },
+  'Denzel Boston': { rows: [null, null, null, null, null, null, [20,"CLE"], null, null, [14,"BAL"]], avg: 17.0 },
+  'Dillon Thieneman': { rows: [[18,"MIN"], [18,"MIN"], [18,"MIN"], [18,"MIN"], [18,"MIN"], [16,"NYJ"], [18,"MIN"], [16,"NYJ"], [16,"NYJ"], null], avg: 17.3 },
+  'Emmanuel McNeil-Warren': { rows: [[19,"CAR"], [16,"NYJ"], null, [19,"CAR"], [19,"CAR"], [19,"CAR"], [19,"CAR"], [19,"CAR"], [19,"CAR"], null], avg: 18.6 },
+  'Fernando Mendoza': { rows: [[1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"], [1,"LV"]], avg: 1.0 },
+  'Francis Mauigoa': { rows: [[9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [9,"KC"], [15,"TB"]], avg: 9.6 },
+  'Jadarian Price': { rows: [[32,"SEA"], [32,"DAL"], [32,"SEA"], [32,"DAL"], [30,"MIA"], [29,"HOU"], [32,"SEA"], [30,"MIA"], [32,"DAL"], null], avg: 31.2 },
+  'Jeremiyah Love': { rows: [[4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [4,"TEN"], [3,"ARI"]], avg: 3.9 },
+  'Jermod McCoy': { rows: [[20,"DAL"], [22,"LAC"], [16,"NYJ"], [22,"LAC"], [22,"LAC"], [30,"MIA"], null, [21,"PHI"], [22,"LAC"], [31,"KC"]], avg: 22.9 },
+  'Jordyn Tyson': { rows: [[21,"PHI"], [8,"NO"], [21,"PHI"], [7,"WAS"], [8,"NO"], [8,"NO"], [21,"PHI"], [8,"NO"], [8,"NO"], [10,"NYG"]], avg: 12.0 },
+  'KC Concepcion': { rows: [null, null, null, null, null, null, null, null, null, [30,"MIA"]], avg: 30.0 },
+  'Kadyn Proctor': { rows: [null, null, null, null, null, [24,"PHI"], [12,"DAL"], null, null, [17,"DET"]], avg: 17.7 },
+  'Kayden McDonald': { rows: [[29,"KC"], [27,"PIT"], null, [27,"PIT"], [29,"NE"], [22,"LAC"], null, [22,"LAC"], [27,"PIT"], [18,"MIN"]], avg: 25.1 },
+  'Keldric Faulk': { rows: [[12,"LAR"], [12,"DAL"], [20,"CLE"], [12,"DAL"], [12,"DAL"], [12,"DAL"], null, [12,"DAL"], [12,"DAL"], null], avg: 13.0 },
+  'Kenyon Sadiq': { rows: [[15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [15,"TB"], [19,"CAR"]], avg: 15.4 },
+  'Makai Lemon': { rows: [[13,"LAR"], [20,"CLE"], [13,"LAR"], [20,"CLE"], [13,"LAR"], [20,"CLE"], [13,"LAR"], [20,"CLE"], [20,"CLE"], [16,"NYJ"]], avg: 16.8 },
+  'Mansoor Delane': { rows: [[11,"DAL"], [6,"CLE"], [7,"WAS"], [8,"NO"], [7,"WAS"], [7,"WAS"], [8,"NO"], [7,"WAS"], [7,"WAS"], [11,"MIA"]], avg: 7.9 },
+  'Max Iheanachor': { rows: [[30,"MIA"], [26,"HOU"], [29,"KC"], [26,"HOU"], [26,"HOU"], null, null, [27,"PIT"], [26,"HOU"], [27,"PIT"]], avg: 27.1 },
+  'Monroe Freeling': { rows: [[17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [17,"DET"], [6,"CLE"]], avg: 15.9 },
+  'Olaivavega Ioane': { rows: [[22,"LAC"], [19,"CAR"], [19,"CAR"], [16,"NYJ"], [21,"PHI"], [18,"MIN"], [25,"LAC"], [18,"MIN"], [18,"MIN"], [13,"LAR"]], avg: 18.9 },
+  'Omar Cooper Jr.': { rows: [[16,"NYJ"], [13,"LAR"], [10,"NYG"], [13,"LAR"], [16,"NYJ"], [13,"LAR"], [16,"NYJ"], [13,"LAR"], [13,"LAR"], [21,"PHI"]], avg: 14.4 },
+  'Peter Woods': { rows: [null, null, [22,"LAC"], null, null, null, null, null, null, [25,"SF"]], avg: 23.5 },
+  'Rueben Bain Jr.': { rows: [[7,"WAS"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [11,"MIA"], [9,"KC"]], avg: 10.4 },
+  'Sonny Styles': { rows: [[5,"NYG"], [5,"NYG"], [5,"NYG"], [5,"NYG"], [5,"NYG"], [5,"NYG"], [7,"WAS"], [6,"CLE"], [5,"NYG"], [7,"WAS"]], avg: 5.5 },
+  'Spencer Fano': { rows: [[14,"BAL"], [14,"BAL"], [14,"BAL"], [14,"BAL"], [14,"BAL"], [14,"BAL"], [14,"BAL"], [10,"NYG"], [14,"BAL"], [24,"BUF"]], avg: 14.6 },
+  'T.J. Parker': { rows: [[25,"BUF"], [23,"CHI"], [25,"BUF"], [23,"CHI"], [23,"CHI"], [25,"CHI"], null, [25,"SF"], null, [22,"LAC"]], avg: 23.9 },
+  'Ty Simpson': { rows: [null, [30,"MIA"], [30,"MIA"], [30,"MIA"], [31,"KC"], [32,"SEA"], [26,"BUF"], [31,"KC"], [30,"MIA"], null], avg: 30.0 },
+  'Zion Young': { rows: [null, null, null, null, null, null, null, null, null, [20,"CLE"]], avg: 20.0 },
 };
 
 function cRank(name) { return CONSENSUS_RANK[name] ?? 99; }
@@ -1234,7 +1246,7 @@ export default function App() {
                             <div style={{ flexShrink:0, position:"relative" }}>
                               <Avatar name={p.player} size={64} />
                               
-                              {(() => { const pv = getPickValue(p.player, t.pick); return pv ? (<div style={{ position:"absolute", top:-6, left:-6, background:pv.color, borderRadius:4, padding:"1px 5px", fontFamily:"'Bebas Neue',sans-serif", fontSize:10, color:"#000", letterSpacing:0.5, whiteSpace:"nowrap" }}>{pv.short}</div>) : null; })()}
+
                             </div>
                             <div style={{ flex:1, minWidth:0 }}>
                               <div style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, color:"#4a6070", letterSpacing:0.5 }}>{displayTeam.full}{tradeTeamData&&<span style={{ color:origColor, marginLeft:6 }}>via {t.name}</span>}</div>
@@ -1253,10 +1265,22 @@ export default function App() {
                         <div style={{ borderTop:`1px solid ${teamColor}22`, padding:"8px 14px", display:"flex", gap:6, flexWrap:"wrap", alignItems:"center" }}>
                           {lkRange && <button onClick={()=>!alreadyLockedInRange&&setPick(t.pick,"lock",!p.lock)} disabled={locked||(alreadyLockedInRange&&!p.lock)} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, letterSpacing:1, border:`1px solid ${p.lock?"#f0b429":alreadyLockedInRange&&!p.lock?"#1c2a38":"#1c2a38"}`, borderRadius:6, padding:"4px 10px", background:p.lock?"rgba(240,180,41,0.12)":"transparent", color:p.lock?"#f0b429":alreadyLockedInRange&&!p.lock?"#2a3540":"#4a6070", cursor:(locked||(alreadyLockedInRange&&!p.lock))?"default":"pointer", opacity:(alreadyLockedInRange&&!p.lock)?0.4:1 }}>{p.lock?"🔒 Locked (1pt)":alreadyLockedInRange?"Lock used":"+ "+lkLabel}</button>}
                           <div style={{ position:"relative" }}>
-                            <button onClick={()=>!locked&&update(s=>{const cur=s.picks[activePlayer][t.pick];if(cur.trade){cur.trade=false;cur.tradeTeam="";}else{cur.trade=true;}return s;})} disabled={locked} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, letterSpacing:1, border:`1px solid ${p.trade?"#ff7b40":"#1c2a38"}`, borderRadius:6, padding:"4px 10px", background:p.trade?"rgba(255,123,64,0.12)":"transparent", color:p.trade?"#ff7b40":"#4a6070", cursor:locked?"default":"pointer" }}>
-                              {p.trade?(p.tradeTeam?`🔄 ${p.tradeTeam}`:"🔄 Trade"):"+ Trade"}
-                            </button>
-                            {p.trade&&!locked&&<button onClick={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=!s.picks[activePlayer][t.pick]._showTeamPicker;return s;})} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, border:"1px solid #ff7b4044", borderRadius:6, padding:"4px 8px", background:"transparent", color:"#ff7b40", cursor:"pointer", marginLeft:4 }}>▾</button>}
+                            {!p.trade ? (
+                              <button onClick={()=>!locked&&update(s=>{s.picks[activePlayer][t.pick].trade=true;return s;})} disabled={locked}
+                                style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, letterSpacing:1, border:"1px solid #1c2a38", borderRadius:6, padding:"4px 10px", background:"transparent", color:"#4a6070", cursor:locked?"default":"pointer" }}>
+                                🔄 Trade
+                              </button>
+                            ) : (
+                              <div style={{ display:"flex", alignItems:"center", gap:4, background:"rgba(255,123,64,0.08)", border:"1px solid #ff7b4044", borderRadius:8, padding:"4px 8px" }}>
+                                <span style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, color:"#ff7b40", letterSpacing:1 }}>TRADED TO:</span>
+                                <button onClick={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=!s.picks[activePlayer][t.pick]._showTeamPicker;return s;})}
+                                  style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:13, border:"none", background:"transparent", color:p.tradeTeam?"#ff7b40":"#4a6070", cursor:"pointer", padding:0 }}>
+                                  {p.tradeTeam||"Pick Team ▾"}
+                                </button>
+                                {!locked&&<button onClick={()=>update(s=>{s.picks[activePlayer][t.pick].trade=false;s.picks[activePlayer][t.pick].tradeTeam="";s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})}
+                                  style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, border:"none", background:"transparent", color:"#ff3d57", cursor:"pointer", padding:"0 2px" }}>✕</button>}
+                              </div>
+                            )}
                             {p.trade&&p._showTeamPicker&&!locked&&<TradeTeamPicker currentTeam={t.name} selected={p.tradeTeam} onSelect={(name)=>update(s=>{s.picks[activePlayer][t.pick].tradeTeam=name;s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})} onClear={()=>update(s=>{s.picks[activePlayer][t.pick].tradeTeam="";return s;})} onClose={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})} />}
                           </div>
                           <button onClick={()=>setPanelProspect(p.player)} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:11, letterSpacing:1, border:"1px solid #1c2a38", borderRadius:6, padding:"4px 10px", background:"transparent", color:"#4a6070", cursor:"pointer" }}>Profile ↗</button>
@@ -1285,10 +1309,22 @@ export default function App() {
                           <div style={{ display:"flex", gap:6, alignItems:"center", flexWrap:"wrap" }}>
                             {lkRange&&<button onClick={()=>!alreadyLockedInRange&&setPick(t.pick,"lock",!p.lock)} disabled={locked||(alreadyLockedInRange&&!p.lock)} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, letterSpacing:1, border:`1px solid ${p.lock?"#f0b429":"#1c2a38"}`, borderRadius:6, padding:"3px 8px", background:p.lock?"rgba(240,180,41,0.12)":"transparent", color:p.lock?"#f0b429":alreadyLockedInRange&&!p.lock?"#2a3540":"#4a6070", cursor:(locked||(alreadyLockedInRange&&!p.lock))?"default":"pointer", opacity:(alreadyLockedInRange&&!p.lock)?0.4:1 }}>{p.lock?"🔒 Locked (1pt)":alreadyLockedInRange?"Lock used":lkLabel}</button>}
                             <div style={{ position:"relative" }}>
-                              <button onClick={()=>!locked&&update(s=>{const cur=s.picks[activePlayer][t.pick];if(cur.trade){cur.trade=false;cur.tradeTeam="";}else{cur.trade=true;}return s;})} disabled={locked} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, letterSpacing:1, border:`1px solid ${p.trade?"#ff7b40":"#1c2a38"}`, borderRadius:6, padding:"3px 8px", background:p.trade?"rgba(255,123,64,0.12)":"transparent", color:p.trade?"#ff7b40":"#4a6070", cursor:locked?"default":"pointer" }}>
-                                {p.trade?(p.tradeTeam?`🔄 ${p.tradeTeam}`:"🔄 Trade"):"+ Trade"}
-                              </button>
-                              {p.trade&&!locked&&<button onClick={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=!s.picks[activePlayer][t.pick]._showTeamPicker;return s;})} style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, border:"1px solid #ff7b4044", borderRadius:6, padding:"3px 6px", background:"transparent", color:"#ff7b40", cursor:"pointer", marginLeft:2 }}>▾</button>}
+                              {!p.trade ? (
+                                <button onClick={()=>!locked&&update(s=>{s.picks[activePlayer][t.pick].trade=true;return s;})} disabled={locked}
+                                  style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:10, letterSpacing:1, border:"1px solid #1c2a38", borderRadius:6, padding:"3px 8px", background:"transparent", color:"#4a6070", cursor:locked?"default":"pointer" }}>
+                                  🔄 Trade
+                                </button>
+                              ) : (
+                                <div style={{ display:"flex", alignItems:"center", gap:4, background:"rgba(255,123,64,0.08)", border:"1px solid #ff7b4044", borderRadius:8, padding:"3px 8px" }}>
+                                  <span style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:9, color:"#ff7b40", letterSpacing:1 }}>TO:</span>
+                                  <button onClick={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=!s.picks[activePlayer][t.pick]._showTeamPicker;return s;})}
+                                    style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:12, border:"none", background:"transparent", color:p.tradeTeam?"#ff7b40":"#4a6070", cursor:"pointer", padding:0 }}>
+                                    {p.tradeTeam||"Pick ▾"}
+                                  </button>
+                                  {!locked&&<button onClick={()=>update(s=>{s.picks[activePlayer][t.pick].trade=false;s.picks[activePlayer][t.pick].tradeTeam="";s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})}
+                                    style={{ fontFamily:"'Barlow Condensed',sans-serif", fontSize:9, border:"none", background:"transparent", color:"#ff3d57", cursor:"pointer", padding:0 }}>✕</button>}
+                                </div>
+                              )}
                               {p.trade&&p._showTeamPicker&&!locked&&<TradeTeamPicker currentTeam={t.name} selected={p.tradeTeam} onSelect={(name)=>update(s=>{s.picks[activePlayer][t.pick].tradeTeam=name;s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})} onClear={()=>update(s=>{s.picks[activePlayer][t.pick].tradeTeam="";return s;})} onClose={()=>update(s=>{s.picks[activePlayer][t.pick]._showTeamPicker=false;return s;})} />}
                             </div>
                           </div>
