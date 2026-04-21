@@ -469,12 +469,14 @@ const MOCK_DRAFT_DATA = {
 
 function cRank(name) { return CONSENSUS_RANK[name] ?? 99; }
 function getMockData(name) {
-  const rows = MOCK_DRAFT_DATA[name];
-  if (!rows) return null;
-  const picks = rows.map(r => r[0]).filter(n => n != null);
+  const entry = MOCK_DRAFT_DATA[name];
+  if (!entry) return null;
+  const rows = Array.isArray(entry) ? entry : entry.rows;
+  if (!rows || !Array.isArray(rows)) return null;
+  const picks = rows.map(r => r ? r[0] : null).filter(n => n != null);
   if (!picks.length) return null;
-  const avg = picks.reduce((a, b) => a + b, 0) / picks.length;
-  return { rows, avg: Math.round(avg * 10) / 10 };
+  const avg = Array.isArray(entry) ? Math.round(picks.reduce((a,b)=>a+b,0)/picks.length*10)/10 : entry.avg;
+  return { rows, avg };
 }
 function mockDraftAvg(name) {
   const md = getMockData(name);
